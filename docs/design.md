@@ -4,18 +4,18 @@
 
 ## システム全体構成
 ```
-ユーザー → フロントエンド(Next.js) → Gemini API → レビュー結果表示
+ユーザー → フロントエンド(Next.js) → OpenAI API → レビュー結果表示
 ```
 
 ## 基本構成
 - **ファイル構成**: 
-  - `src/pages/index.tsx` - メインページ（全機能を1ページに集約）
-  - `src/pages/api/review.ts` - Gemini API呼び出し用のAPI Route
-  - `src/styles/globals.css` - シンプルなスタイル
+  - `src/app/page.tsx` - メインページ（全機能を1ページに集約）
+  - `src/app/api/review/route.ts` - OpenAI API呼び出し用のAPI Route
+  - `src/app/globals.css` - シンプルなスタイル
 - **ライブラリ**: 
   - Next.js（フレームワーク）
   - Tailwind CSS（スタイリング）
-  - @google/generative-ai（Gemini API）
+  - openai（OpenAI API）
 - **データ**: セッション内で完結（永続化なし）
 
 ## UI設計
@@ -39,8 +39,8 @@
 - プレースホルダーで入力例を表示
 - 文字数カウント表示（参考程度）
 
-### 2. Gemini API連携
-**API Route (`/api/review.ts`)**:
+### 2. OpenAI API連携
+**API Route (`/api/review/route.ts`)**:
 ```typescript
 // POST /api/review
 // Body: { text: "プレゼン内容" }
@@ -57,6 +57,7 @@
 5. Time（18分以内の構成）
 
 各観点を1-10点で評価し、改善ポイントを具体的に提示してください。
+JSON形式で回答してください。
 ```
 
 ### 3. 結果表示機能
@@ -68,12 +69,12 @@
 1. ユーザーがテキスト入力
 2. 「レビュー実行」ボタンクリック
 3. フロントエンドが `/api/review` にPOST
-4. API RouteがGemini APIを呼び出し
+4. API RouteがOpenAI APIを呼び出し
 5. レビュー結果をフロントエンドに返却
 6. 結果を画面に表示
 
 ## 環境変数
-- `GEMINI_API_KEY` - Gemini APIキー
+- `OPENAI_API_KEY` - OpenAI APIキー
 
 ## 開発のコツ
 - **コピペでOK**: コードの美しさより動作優先

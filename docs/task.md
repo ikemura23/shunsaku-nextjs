@@ -5,19 +5,19 @@
 ## 開発タスク（優先順）
 
 ### Phase 1: 環境準備・基本構成
-- [ ] 1. 必要なライブラリをインストール（@google/generative-ai, tailwindcss）
-- [ ] 2. 環境変数設定（GEMINI_API_KEY）
+- [ ] 1. 必要なライブラリをインストール（openai, tailwindcss）
+- [ ] 2. 環境変数設定（OPENAI_API_KEY）
 - [ ] 3. Tailwind CSS設定確認・調整
 
 ### Phase 2: API Route作成
-- [ ] 4. `/src/pages/api/review.ts` 作成
-  - Gemini API連携処理
+- [ ] 4. `/src/app/api/review/route.ts` 作成
+  - OpenAI API連携処理
   - プロンプト設計実装
   - エラーハンドリング（簡素でOK）
   - レスポンス形式定義
 
 ### Phase 3: フロントエンド実装
-- [ ] 5. `/src/pages/index.tsx` 作成
+- [ ] 5. `/src/app/page.tsx` 更新
   - ヘッダー・タイトル部分
   - テキスト入力エリア（textarea）
   - レビュー実行ボタン
@@ -57,7 +57,7 @@
 - **console.log多用**: 動作を確認しながら開発
 - **一気に作る**: 小さな改造を繰り返さず一気に完成させる
 - **動けばOK**: 美しいコードよりも動作するコード
-- **Gemini APIキー**: 事前に取得しておく
+- **OpenAI APIキー**: 事前に取得しておく
 
 ## 見積もり時間
 - Phase 1: 30分
