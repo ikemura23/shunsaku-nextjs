@@ -60,7 +60,7 @@ async function getOpenAIReview(text: string): Promise<ReviewResponse> {
     messages: [
       {
         role: "system",
-        content: "あなたはTEDトークの専門家です。プレゼン内容を5つの観点で評価し、JSON形式で回答してください。"
+        content: "あなたはTEDトークの専門家です。プレゼン内容を5つの観点で評価し、必ず有効なJSON形式で回答してください。JSON以外の文字は一切含めないでください。"
       },
       {
         role: "user",
@@ -80,7 +80,7 @@ ${text}
 各観点を1-10点で評価し、改善ポイントを具体的に提示してください。
 また、全体的なコメントも添えてください。
 
-必ずJSON形式で以下の構造で回答してください：
+以下のJSON構造で回答してください（この形式以外は回答しないでください）：
 {
   "reviews": [
     {
@@ -113,8 +113,7 @@ ${text}
 }`
       }
     ],
-    temperature: 0.7,
-    response_format: { type: "json_object" }
+    temperature: 0.7
   });
 
   const reviewText = completion.choices[0].message.content;
@@ -123,7 +122,13 @@ ${text}
     throw new Error('OpenAI APIからの応答が空です');
   }
 
-  const reviewData: ReviewResponse = JSON.parse(reviewText);
+  // JSONのクリーニング（コードブロックマーカーや余分な文字を除去）
+  const cleanedText = reviewText
+    .replace(/```json\n?/g, '')
+    .replace(/\n?```/g, '')
+    .trim();
+
+  const reviewData: ReviewResponse = JSON.parse(cleanedText);
   
   // OpenAI APIからの結果であることを明記
   reviewData.overall += " （※OpenAI APIによる分析結果）";
