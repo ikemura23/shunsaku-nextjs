@@ -56,7 +56,7 @@ export default function Home() {
           TED式 プレゼン指南所
         </h1>
         <p className="text-xl text-ted-gray">
-          あなたの資料を"世界最高のプレゼン基準"で添削
+          あなたの資料を&quot;世界最高のプレゼン基準&quot;で添削
         </p>
       </div>
 
